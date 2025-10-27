@@ -61,8 +61,8 @@ class HoureiMCPServer {
               },
               limit: {
                 type: 'number',
-                description: '取得する最大件数（デフォルト: 10）',
-                default: 10,
+                description: '取得する最大件数（デフォルト: 100）',
+                default: 100,
               },
             },
             required: ['keyword'],
@@ -129,7 +129,7 @@ class HoureiMCPServer {
   }
 
   async searchLaw(args) {
-    const { keyword, category, limit = 10 } = args;
+    const { keyword, category, limit = 100 } = args;
     
     // 検索APIのURL構築
     const params = new URLSearchParams();
