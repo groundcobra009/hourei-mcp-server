@@ -1,6 +1,6 @@
 {
   "name": "hourei-mcp-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for Japanese law information using e-Gov API",
   "type": "module",
   "main": "index.js",
