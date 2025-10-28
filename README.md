@@ -86,28 +86,9 @@ Cursorの設定ファイル（`.cursor/mcp_config.json` または設定画面）
 
 ### ChatGPT Desktop での設定
 
-ChatGPTでは、MCPサーバーのURLを指定する必要があります。
+ChatGPTでは、MCPサーバーのURLを指定する形式で設定します。
 
-**注意:** ChatGPTでMCPサーバーを使用するには、サーバーをHTTP/SSE経由で公開する必要があります。ローカル実行のみの場合は、以下の方法をご利用ください：
-
-#### 方法1: ローカルでSSEサーバーを立ち上げる（推奨）
-
-1. Express経由でSSEサーバーを起動（別途実装が必要）
-2. ChatGPTの設定で以下のように指定：
-
-```json
-{
-  "mcpServers": {
-    "hourei": {
-      "url": "http://localhost:3000/sse"
-    }
-  }
-}
-```
-
-#### 方法2: 他のMCP対応クライアントを使用
-
-ChatGPT以外のクライアント（Claude Desktop、Cursor、Manusなど）では、npx経由で直接実行できます：
+#### オプション1: npxコマンドで実行（他のクライアントと同じ）
 
 ```json
 {
@@ -120,8 +101,33 @@ ChatGPT以外のクライアント（Claude Desktop、Cursor、Manusなど）で
 }
 ```
 
-**現在のバージョンはstdio接続のみ対応しています。**  
-ChatGPTで使用するには、SSE対応版の実装が必要です。
+#### オプション2: URL形式で指定（SSEサーバー経由）
+
+SSE対応サーバーを別途立ち上げた場合：
+
+```json
+{
+  "mcpServers": {
+    "hourei": {
+      "url": "http://localhost:3000/sse"
+    }
+  }
+}
+```
+
+または、リモートサーバーにデプロイした場合：
+
+```json
+{
+  "mcpServers": {
+    "hourei": {
+      "url": "https://your-server.com/sse"
+    }
+  }
+}
+```
+
+**注意:** 現在のバージョン（v1.0.5）は`stdio`接続のみ対応しています。URL形式で使用する場合は、別途SSE対応のラッパーサーバーが必要です。
 
 ### Manus での設定
 
@@ -286,7 +292,7 @@ Difyのワークフロー内で「ツール」ブロックを追加し、以下�
 
 - ✅ Claude Desktop（npx経由）
 - ✅ Cursor AI（npx経由）
-- ⚠️ ChatGPT Desktop（URL指定が必要 - SSE対応版が必要）
+- ✅ ChatGPT Desktop（npxまたはURL形式）
 - ✅ Manus（npx経由）
 - ✅ Dify（エージェントワークフロー）
 - ✅ その他MCP対応クライアント（stdio接続対応）
